@@ -1,0 +1,22 @@
+sw_volume: 98
+audio_device_state:1:PipeWire Sound Server
+audio_device_state:1:my_fifo
+state: pause
+current: 6
+time: 529.667000
+random: 0
+repeat: 1
+single: 0
+consume: 0
+crossfade: 5
+mixrampdb: 0.000000
+mixrampdelay: -1.000000
+playlist_begin
+0:Artists/Daft Punk/2013 - Random Access Memories/07 - Touch.mp3
+1:Artists/Daft Punk/2013 - Random Access Memories/09 - Beyond.mp3
+2:Artists/Daft Punk/2013 - Random Access Memories/10 - Motherboard.mp3
+3:Artists/Daft Punk/2013 - Random Access Memories/12 - Doin' It Right.mp3
+4:Artists/Daft Punk/2013 - Random Access Memories/13 - Contact.mp3
+5:Artists/Daft Punk/2013 - Random Access Memories/02 - The Game Of Love.mp3
+6:Artists/Daft Punk/2013 - Random Access Memories/03 - Giorgio By Moroder.mp3
+playlist_end
