@@ -1,206 +1,49 @@
-(defwidget bar0 []
-(box :class "bar"
-  (centerbox :orientation "h"
-    (workspaces0)
-    (clock)
-    (sidestuff)))
-)
-
-(defwidget bar1 []
-(box :class "bar"
-  (centerbox :orientation "h"
-    (workspaces1)
-    (clock)
-    (sidestuff)))
-)
-
-(defwidget sidestuff []
-  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
-   (updates)
-   (scratchpad-indicator)
-   (language)
-   (idleinhibit)
-   (bright)
-   (audio)
-   (net)
-   (battery)
+(defwindow bar
+          :monitor 0
+          :geometry (geometry :x "0px"
+                              :y "0px"
+                              :width "100%"
+                              :height: "420px"
+                              :anchor "top center")
+          :exclusive true
+          :namespace "eww"
+          :stacking "bg"
+  (boxes
+    (label :text "🎶 ${current-song}")
+    (time)
+    (date)
     ))
 
-(deflisten workspace0
-  "scripts/workspace.sh 0")
 
-(defwidget workspaces0 []
-  (literal :content workspace0))
+(defwidget time []
+  (box  :orientation "horizontal"
+        :halign "center"
+  (label :text "${current-time}")))
 
-(deflisten workspace1
-  "scripts/workspace.sh 1")
+(defwidget date []
+  (box  :orientation "horizontal"
+        :halign "center"
+  (label :text "${current-date}")))
 
-(defwidget workspaces1 []
-  (literal :content workspace1))
+(defwidget labeled-container [name]
+  (box :class "container"
+    name
+    (children)))
 
-(defwidget language []
-  (box :class "language"
-       :orientation "h"
-       :space-evenly false
-       :halign "end"
-       :spacing 10
-    (button
-        :class ""
-	:onclick "scripts/keyboardlayout.sh toggle"
-        language)
-))
+(defwidget boxes []
+  (box
+    (box :class "first" (children :nth 0))
+    (box :class "second" (children :nth 1))
+    (box :class "second" (children :nth 2))
+    ))
 
-(defwidget clock []
-  (box :class "clock"
-       :orientation "h"
-       :space-evenly false
-       :halign "center"
-    (button
-        :class ""
-	:onclick "scripts/calendar.sh show"
-        date-time)
-))
 
-(defwidget audio []
-  (box :class "audio"
-       :orientation "h"
-       :space-evenly false
-       :halign "end"
-       :spacing 10
-    (button
-        :class ""
-	:onclick "scripts/volumecontrol down"
-        :onmiddleclick "scripts/volumecontrol mute"
-	:onrightclick "scripts/volumecontrol up"
-        volume)
-))
+(defpoll current-time :interval "1s"
+  `date +%H:%M:%S`)
 
-(defwidget bright []
-  (box :class "brightness"
-       :orientation "h"
-       :space-evenly false
-       :halign "end"
-       :spacing 10
-    (button
-        :class ""
-	:onclick "scripts/brightnesscontrol down"
-	:onrightclick "scripts/brightnesscontrol up"
-        brightness)
-))
+(deflisten current-date :interval "24h"
+  `date +%D`)
 
-(defwidget updates []
-  (box 
-       :class "${matches(arch-updates, '^\s*$')?'paru-empty':'paru'}"
-       :orientation "h"
-       :space-evenly false
-       :halign "end"
-       :spacing 10
-    (button
-        :class ""
-	:onclick "foot bash -c 'paru; ~/.config/eww/scripts/arch-updates.sh Refresh'&"
-        arch-updates)
-))
+(deflisten current-song :initial "🎵"
+  `playerctl --player playerctld --follow metadata --format {{title}}`)
 
-(defwidget scratchpad-indicator []
-  (box 
-       :class "${matches(scratchpad, '^\s*$')?'scratchpad-empty':'scratchpad'}"
-       :orientation "h"
-       :space-evenly false
-       :halign "end"
-       :spacing 10
-    (button
-        :class ""
-	:onclick "scripts/scratchpad-indicator.sh ShowInfo"
-        scratchpad)
-))
-
-(defwidget idleinhibit []
-  (box :class "idle"
-       :orientation "h"
-       :space-evenly false
-       :halign "end"
-       :spacing 10
-    (button
-        :class ""
-	:onclick "scripts/idleinhibit.sh toggle"
-        idle)
-))
-
-(defwidget net []
-  (box :class "net"
-       :orientation "h"
-       :space-evenly false
-       :halign "end"
-       :spacing 10
-    (button
-        :class ""
-	:onclick "scripts/network.sh ShowInfo"
-        network)
-))
-
-(defwidget battery []
-  (box :class "battery"
-       :orientation "h"
-       :space-evenly false
-       :halign "end"
-       :spacing 10
-    (button
-        :class ""
-	:onclick "scripts/battery.py --c left-click"
-        :onmiddleclick "scripts/battery.py --c middle-click"
-	:onrightclick "scripts/battery.py --c right-click"
-        battery)
-))
-
-(defpoll battery :interval "10s"
-  "scripts/battery.py --c status")
-
-(defpoll scratchpad :interval "1s"
-  "scripts/scratchpad-indicator.sh Update || echo null")
-
-(defpoll language :interval "1s"
-  "scripts/keyboardlayout.sh")
-
-(defpoll network :interval "1s"
-  "scripts/network.sh")
-
-(defpoll idle :interval "1s"
-  "scripts/idleinhibit.sh")
-
-(defpoll arch-updates :interval "600s"
-  "scripts/arch-updates.sh")
-
-(defpoll volume :interval "1s"
-  "scripts/volumecontrol")
-
-(defpoll brightness :interval "1s"
-  "scripts/brightnesscontrol")
-
-(defpoll date-time :interval "1s"
-  "scripts/date-time.sh")
-
-(defwindow bar0
-  :monitor 0
-  :windowtype "dock"
-  :geometry (geometry :x "0%"
-                      :y "10px"
-                      :width "100%"
-                      :height "20px"
-                      :anchor "top center")
-  :stacking "bt"
-  :exclusive true
-  :focusable false
-  (bar0))
-
-(defwindow bar1
-  :monitor 0
-  :windowtype "dock"
-  :geometry (geometry :x "0%"
-                      :y "10px"
-                      :width "100%"
-                      :height "20px"
-                      :anchor "top center")
-  :stacking "bt"
-  :exclusive true
-  :focusable false
-  (bar1))
