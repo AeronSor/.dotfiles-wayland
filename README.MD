@@ -3,4 +3,4 @@
 This shit is great :)
 
 ### Preview
-![preview.png]
+![](preview.png)
