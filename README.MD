@@ -2,5 +2,11 @@
 
 This shit is great :)
 
-### Preview
+## Preview
 ![](preview.png)
+
+### Dependencies
+hyprland
+hyprpaper
+mpd
+playerctl

@@ -12,6 +12,7 @@
     (label :text "🎶 ${current-song}")
     (time)
     (date)
+    (updates)
     ))
 
 
@@ -25,6 +26,11 @@
         :halign "center"
   (label :text "${current-date}")))
 
+(defwidget updates []
+  (box  :orientation "horizontal"
+        :haling "center"
+  (label :text "📦 ${update-var}")))
+
 (defwidget labeled-container [name]
   (box :class "container"
     name
@@ -34,7 +40,8 @@
   (box
     (box :class "first" (children :nth 0))
     (box :class "second" (children :nth 1))
-    (box :class "second" (children :nth 2))
+    (box :class "third" (children :nth 2))
+    (box :class "fourth" (children :nth 3))
     ))
 
 
@@ -46,4 +53,8 @@
 
 (deflisten current-song :initial "🎵"
   `playerctl --player playerctld --follow metadata --format {{title}}`)
+
+(deflisten update-var :interval "1h"
+                      :initial "0"
+  `sh ~/.config/eww/scripts/checkupdates.sh`)
 
