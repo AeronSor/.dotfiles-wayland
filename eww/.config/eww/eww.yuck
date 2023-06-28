@@ -1,21 +1,3 @@
-(defwindow bar
-          :monitor 0
-          :geometry (geometry :x "0px"
-                              :y "0px"
-                              :width "100%"
-                              :height: "420px"
-                              :anchor "top center")
-          :exclusive true
-          :namespace "eww"
-          :stacking "bg"
-  (boxes
-    (label :text "🎶 ${current-song}")
-    (time)
-    (date)
-    (updates)
-    ))
-
-
 (defwidget time []
   (box  :orientation "horizontal"
         :halign "center"
@@ -57,4 +39,28 @@
 (deflisten update-var :interval "1h"
                       :initial "0"
   `sh ~/.config/eww/scripts/checkupdates.sh`)
+
+(deflisten update-aur-var :interval "1h"
+                      :initial "0"
+  `sh ~/.config/eww/scripts/checkupdates-aur.sh`)
+
+
+(defwindow bar
+          :monitor 0
+          :geometry (geometry :x "0px"
+                              :y "0px"
+                              :width "100%"
+                              :height: "420px"
+                              :anchor "top center")
+          :exclusive true
+          :namespace "eww"
+          :stacking "bg"
+  (boxes
+    (label :text "🎶 ${current-song}")
+    (time)
+    (date)
+    (updates)
+    ))
+
+
 

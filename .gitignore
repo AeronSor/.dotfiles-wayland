@@ -1,1 +1,4 @@
-/AeroNvim
+AeroNvim/
+mpd+ncmpcpp/.config/mpd/state
+mpd+ncmpcpp/.config/mpd/pid
+
