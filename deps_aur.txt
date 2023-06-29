@@ -1,0 +1,8 @@
+eww-wayland
+anki-bin
+nwg-look-bin
+bibata-cursor-themedracula-gtk-theme
+soundwire
+arqiver-git
+wofi-emoji
+opentabletdriver

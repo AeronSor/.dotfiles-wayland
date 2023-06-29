@@ -1,3 +1,8 @@
 # Comment
+^/deps.txt
+
+^/README.*
+^/LICENSE
+
 \.git
 \.gitignore
