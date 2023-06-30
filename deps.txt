@@ -1,4 +1,3 @@
-EWIEOWEIOEIAJEW
 hyprland
 wayland
 leafpad
@@ -19,6 +18,8 @@ vulkan-headers
 vulkan-icd-loader
 wine-staging
 winetricks
+wine-gecko
+wine-mono
 mpd
 ncmpcpp
 qbittorrent
