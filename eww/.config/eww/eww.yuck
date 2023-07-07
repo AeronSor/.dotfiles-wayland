@@ -1,3 +1,7 @@
+;Includes
+(include "./widgets/powermenu.yuck")
+
+
 (defwidget time []
   (box  :orientation "horizontal"
         :halign "center"
@@ -19,7 +23,7 @@
     (children)))
 
 (defwidget boxes []
-  (box
+  (box  :orientation "h"
     (box :class "first" (children :nth 0))
     (box :class "second" (children :nth 1))
     (box :class "third" (children :nth 2))
@@ -33,7 +37,7 @@
 (deflisten current-date :interval "24h"
   `date +%D`)
 
-(deflisten current-song :initial "🎵"
+(deflisten current-song :initial ""
   `playerctl --player playerctld --follow metadata --format {{title}}`)
 
 (deflisten update-var :interval "1h"
@@ -47,16 +51,17 @@
 
 (defwindow bar
           :monitor 0
-          :geometry (geometry :x "0px"
-                              :y "0px"
-                              :width "100%"
-                              :height: "420px"
-                              :anchor "top center")
           :exclusive true
           :namespace "eww"
-          :stacking "bg"
+          :stacking "fg"
+          :geometry (geometry :x "0px"
+                              :y "1%"
+                              :width "90%"
+                              :height: "100%"
+                              :anchor "top center")
+
   (boxes
-    (label :text "🎶 ${current-song}")
+    (label :text "🎶 ${current-song}" :limit-width 30)
     (time)
     (date)
     (updates)

@@ -1,0 +1,16 @@
+(defwindow powermenu
+  :monitor 0
+  :stacking "overlay"
+  :exclusive false
+  :focusable true
+  :namespace "powermenu"
+  :geometry (geometry
+              :width "100%"
+              :height "100%")
+  (powermenu-layout))
+
+(defwidget powermenu-layout []
+  (box :orientation "h" :class "amog"
+    (label  :text "Hi there!"
+            :justify "left")))
+
